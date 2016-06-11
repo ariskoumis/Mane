@@ -27,10 +27,19 @@ angular.module('starter.controllers', ['ngCordova'])
   };
 })
 
-.controller('videoControl', function($scope, $cordovaCapture) {
-  $scope.pictureUrl = "http://placehold.it/300x300"
-
-  $scope.takePicture = function() {
-    console.log('OOKOKOKOKOKOK!')
-  }
+.controller('videoControl', function($scope, $cordovaCamera, $ionicPlatform) {
+  $ionicPlatform.ready(function() {
+      var options = {
+      destinationType: Camera.DestinationType.DATA_URL,
+      encodingType: Camera.EncodingType.JPEG,
+      sourceType: Camera.PictureSourceType.CAMERA
+    }
+    $scope.takePicture = function() {
+      $cordovaCamera.getPicture(options).then(function(data) {
+        $scope.pictureUrl = "data:image/jpeg;base64,"+data;
+      }, function(error) {
+          console.log('HEY')
+      })
+    }
+  })
 })
