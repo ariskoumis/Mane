@@ -28,18 +28,40 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('videoControl', function($scope, $cordovaCamera, $ionicPlatform) {
-  $ionicPlatform.ready(function() {
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function onDeviceReady() {
+    $ionicPlatform.ready(function() {
       var options = {
-      destinationType: Camera.DestinationType.DATA_URL,
-      encodingType: Camera.EncodingType.JPEG,
-      sourceType: Camera.PictureSourceType.CAMERA
-    }
-    $scope.takePicture = function() {
-      $cordovaCamera.getPicture(options).then(function(data) {
-        $scope.pictureUrl = "data:image/jpeg;base64,"+data;
-      }, function(error) {
-          console.log('HEY')
-      })
-    }
-  })
+        destinationType: Camera.DestinationType.DATA_URL,
+        encodingType: Camera.EncodingType.JPEG,
+        sourceType: Camera.PictureSourceType.CAMERA
+      }
+      $scope.takePicture = function() {
+        $cordovaCamera.getPicture(options).then(function(data) {
+          $scope.pictureUrl = "data:image/jpeg;base64,"+data;
+        }, function(error) {
+            console.log('HEY')
+        })
+      }
+      $scope.takeVideo = function() {
+        // capture callback
+        function captureSuccess(s) {
+          console.log("Success");
+          console.dir(s[0]);
+          var v = "<video controls='controls'>";
+          v += "<source src='" + s[0].fullPath + "' type='video/mp4'>";
+          v += "</video>";
+          document.querySelector("#videoArea").innerHTML = v;
+        }
+
+        // capture error callback
+        var captureError = function(error) {
+            navigator.notification.alert('Error code: ' + error.code, null, 'Capture Error');
+        };
+
+        // start video capture
+        navigator.device.capture.captureVideo(captureSuccess, captureError, {limit:2});
+      }
+    })
+  }
 })
