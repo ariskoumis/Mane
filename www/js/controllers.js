@@ -28,33 +28,9 @@ angular.module('starter.controllers', ['ngCordova'])
 })
 
 .controller('videoControl', function($scope, $cordovaCapture) {
-  $scope.captureAudio = function() {
-    var options = { limit: 3, duration: 10 };
+  $scope.pictureUrl = "http://placehold.it/300x300"
 
-    $cordovaCapture.captureAudio(options).then(function(audioData) {
-      // Success! Audio data is here
-    }, function(err) {
-      // An error occurred. Show a message to the user
-    });
-  }
-
-  $scope.captureImage = function() {
-    var options = { limit: 3 };
-
-    $cordovaCapture.captureImage(options).then(function(imageData) {
-      // Success! Image data is here
-    }, function(err) {
-      // An error occurred. Show a message to the user
-    });
-  }
-
-  $scope.captureVideo = function() {
-    var options = { limit: 3, duration: 15 };
-
-    $cordovaCapture.captureVideo(options).then(function(videoData) {
-      // Success! Video data is here
-    }, function(err) {
-      // An error occurred. Show a message to the user
-    });
+  $scope.takePicture = function() {
+    console.log('OOKOKOKOKOKOK!')
   }
 })

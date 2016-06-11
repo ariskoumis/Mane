@@ -1,7 +1,14 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <button class="button button-full button-positive">
-      Capture Video
-    </button>
+  	<div class="list card">
+  		<div class="item item-image">
+  			<img ng-src="{{pictureUrl}}">
+  		</div>
+  	</div>
+  	<div class="padding">
+  		<button ng-click="takePicture()" class="button button-full button-positive">
+	      Capture Video
+	    </button>
+  	</div>
   </ion-content>
 </ion-view>
